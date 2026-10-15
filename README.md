@@ -48,68 +48,37 @@
 ```python
 import random
 
-class VacuumCleanerAgent:
-    def __init__(self):  # Initialize the agent's state (location and dirt status)
-        self.location = "A"  # Initial location (can be "A" or "B")
-        self.dirt_status = {
-            "A": True,
-            "B": True,
-        }  # Initial dirt status (False means no dirt)
-        self.performance = 0
+rooms = {
+    "Room 1": random.uniform(97, 102.5),
+    "Room 2": random.uniform(97, 102.5)
+}
 
-    def move_left(self):  # Move the agent to the left if possible
-        if self.location == "B":
-            self.location = "A"
+performance = 0
+room = random.choice(list(rooms.keys()))
 
-    def move_right(self):  # Move the agent to the right if possible
-        if self.location == "A":
-            self.location = "B"
+for i in range(2):
+    temp = rooms[room]
 
-    def suck_dirt(self):  # Suck dirt in the current location if there is dirt
-        if self.dirt_status[self.location]:
-            self.dirt_status[self.location] = False
-            print(f"Sucked dirt in location {self.location}")
+    print("\nAgent is in", room)
+    print("Patient Temperature:", round(temp, 1), "F")
 
-    def do_nothing(self):  # Do nothing
-        pass
+    if temp > 98.5:
+        print("Fever - Medicine Prescribed")
+        performance += 1
+    else:
+        print("Patient is healthy")
 
-    def perform_action(self, action):  # Perform the specified action
-        if action == "left":
-            self.performance = self.performance - 1
-            self.move_left()
-        elif action == "right":
-            self.performance = self.performance - 1
-            self.move_right()
-        elif action == "suck":
-            self.performance = self.performance + 10
-            self.suck_dirt()
-        elif action == "nothing":
-            self.do_nothing()
-        else:
-            print("Invalid action")
+    if i == 0:
+        old_room = room
+        room = "Room 2" if room == "Room 1" else "Room 1"
+        print("Moving from", old_room, "to", room)
+        performance -= 1
 
-    def print_status(self):  # Print the current status of the agent
-        print(f"Location: {self.location}, Dirt Status: {self.dirt_status}, ", end="")
-        print(f"Perfomance Measure: {self.performance}")
-
-
-# Example usage:
-agent = VacuumCleanerAgent()
-# Move the agent, suck dirt, and do nothing
-agent.perform_action("left")
-agent.print_status()
-agent.perform_action("suck")
-agent.print_status()
-agent.perform_action("right")
-agent.print_status()
-agent.perform_action("suck")
-agent.print_status()
-agent.perform_action("nothing")
-agent.print_status()
+print("\nFinal Performance:", performance)
 ```
 
 ## Output:
-<img width="857" height="162" alt="image" src="https://github.com/user-attachments/assets/b9beb78f-570d-4773-b8a4-5ee2108957bf" />
+<img width="531" height="227" alt="image" src="https://github.com/user-attachments/assets/26d86081-a5ad-42be-bc96-4064f01a1533" />
 
 
 
